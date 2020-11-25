@@ -13,6 +13,17 @@ var x = setInterval(function() {
 
 }, 1000);
 
+// function to translate from spherical to cartesian
+function sphericalToCartesian(r,θ,ϕ){
+  x=r*Math.sin(ϕ)*Math.cos(θ);
+  y=r*Math.sin(ϕ)*Math.sin(θ);
+  z=r*Math.cos(ϕ);
+  let cord=[x,y,z];
+  console.log(cord);
+  return cord;
+}
+sphericalToCartesian(25,10,12)
+
 // Made with Zdog
 const TAU = Zdog.TAU;
 const offWhite = '#FED';
@@ -89,7 +100,7 @@ new Zdog.Cone({
   addTo: earth,
   diameter: 7,
   length: 9,
-  translate: {z: 25 },
+  translate: {x:6.25, y:10.82531755,z:21.65063509},
   stroke: false,
   color: '#006400',
   backface: '#148414',
@@ -99,7 +110,7 @@ new Zdog.Cylinder({
   addTo: earth,
   diameter: 2,
   length: 6,
-  translate: {z: 25 },
+  translate: {x:6.25, y:10.82531755,z:21.65063509},
   stroke: false,
   color: '#a0522d',
   backface: '#E62',

@@ -1,5 +1,4 @@
 
-
 let illo = new Zdog.Illustration({
     // set canvas with selector
     element: '.zdog-canvas',

@@ -19,7 +19,7 @@ function sphericalToCartesian(r,θ,ϕ){
   y=r*Math.sin(ϕ)*Math.sin(θ);
   z=r*Math.cos(ϕ);
   let cord=[x,y,z];
-  console.log(cord);
+  console.log(cord[0]);
   return cord;
 }
 sphericalToCartesian(25,10,12)
@@ -94,47 +94,64 @@ animate();
 
 // let the trees begin
 //let isSpinning = true;
+function trees(xcart,ycart,zcart,angle){
+  new Zdog.Cone({
+    addTo: earth,
+    diameter: 7,
+    length: 9,
+    translate: {x:xcart,y:ycart,z:zcart},
+    stroke: false,
+    color: '#006400',
+    backface: '#148414',
+    rotate: {x:angle},
+  });
+  
+  /*new Zdog.Cylinder({
+    addTo: earth,
+    diameter: 2,
+    length: 6,
+    translate: {x:xcart,y:ycart,z:zcart},
+    stroke: false,
+    color: '#a0522d',
+    backface: '#E62',
+    //rotate: { z: -TAU/8 },
+    
+  }); */ 
+}
+//trees(6.25,10.82531755,21.65063509);
+trees(00,00,25);
+trees(sphericalToCartesian(25,10,12));
+let xnew= sphericalToCartesian(25,10,25)[0];
+let ynew= sphericalToCartesian(25,10,25)[1];
+let znew= sphericalToCartesian(25,10,25)[2];
+trees(xnew,ynew,znew);
+console.log(xnew);
+//sphericalToCartesian(25,10,12);
+for (let i=0; i<360;i=i+30){
+  for (let jmm=0; jmm<180; jmm=jmm+30){
+    trees(sphericalToCartesian(25,jmm,i)[0],sphericalToCartesian(25,jmm,i)[1],sphericalToCartesian(25,jmm,i)[2],i*TAU/360)
+    } 
+  }
+     
+  let xaxe = new Zdog.Shape({
+    addTo: earth,
+    path: [ { x: 0 }, { x: 100 } ],
+    stroke: 2,
+    color: '#636',
+  });
+  let yaxe = new Zdog.Shape({
+    addTo: earth,
+    path: [ { y: 0 }, { y: 100 } ],
+    stroke: 2,
+    color: '#EA0',});
+  
+    let zaxe = new Zdog.Shape({
+      addTo: earth,
+      path: [ { z: 0 }, { z: 100 } ],
+      stroke: 2,
+      color: '#F0F',});
 
 
-new Zdog.Cone({
-  addTo: earth,
-  diameter: 7,
-  length: 9,
-  translate: {x:6.25, y:10.82531755,z:21.65063509},
-  stroke: false,
-  color: '#006400',
-  backface: '#148414',
-});
-
-new Zdog.Cylinder({
-  addTo: earth,
-  diameter: 2,
-  length: 6,
-  translate: {x:6.25, y:10.82531755,z:21.65063509},
-  stroke: false,
-  color: '#a0522d',
-  backface: '#E62',
-});
-
-new Zdog.Cone({
-  addTo: earth,
-  diameter: 7,
-  length: 9,
-  translate: {z: 25 },
-  stroke: false,
-  color: '#006400',
-  backface: '#148414',
-});
-
-new Zdog.Cylinder({
-  addTo: earth,
-  diameter: 2,
-  length: 6,
-  translate: {z: 25 },
-  stroke: false,
-  color: '#a0522d',
-  backface: '#E62',
-});
 
 function animate() {
   //illo.rotate.x += isSpinning ? 0.03 : 0;
@@ -143,3 +160,10 @@ function animate() {
 }
 
 animate();
+
+
+
+
+
+
+//translate: {x:6.25, y:10.82531755,z:21.65063509},

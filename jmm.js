@@ -22,7 +22,7 @@ function sphericalToCartesian(r,θ,ϕ){
   y=r*Math.sin(ϕ)*Math.sin(θ);
   z=r*Math.cos(ϕ);
   let cord=[x,y,z];
-  console.log(cord[0]);
+  //console.log(cord[0]);
   return cord;
 }
 sphericalToCartesian(25,10,12);
@@ -39,13 +39,53 @@ const illo = new Zdog.Illustration({
   rotate: { y: -TAU/4 },
   dragRotate: true,
 });
-// add circle
+
+// creation of the earth using Shape
 let earth = new Zdog.Shape({
   addTo: illo,
   // no path set, default to single point
   stroke: 50,
-  color: ' #000099',
+  color: '#23278f',
 });
+let eye = new Zdog.Ellipse({
+  addTo: earth,
+  diameter: 4,
+  quarters: 2, // semi-circle
+  translate: { x: -4, y: 1, z: 24 },
+  // rotate semi-circle to point up
+  rotate: { z: -TAU/4 },
+  color: "#ffffff",
+  stroke: 1,
+  // hide when front-side is facing back
+  backface: false,
+});
+
+let eye2 = new Zdog.Ellipse({
+  addTo: earth,
+  diameter: 4,
+  quarters: 2, // semi-circle
+  translate: { x: 4, y: 1, z: 24 },
+  // rotate semi-circle to point up
+  rotate: { z: -TAU/4 },
+  color: "#ffffff",
+  stroke: 1,
+  // hide when front-side is facing back
+  backface: false,
+});
+
+let mouth = new Zdog.Ellipse({
+  addTo: earth,
+  diameter: 3,
+  quarters: 2,
+  translate: { y: 8, z: 24 },
+  rotate: { z: -TAU/4 },
+  closed: true,
+  color: '#FED',
+  stroke: 0.5,
+  fill: true,
+  backface: false,
+});
+
 
 // update & render
 illo.updateRenderGraph();
@@ -57,49 +97,67 @@ animate();
 
 
 // let the trees begin
-//let isSpinning = true;
-function trees(xcart,ycart,zcart,angle1,angle2){
-  new Zdog.Cone({
-    addTo: earth,
-    diameter: 7,
-    length: 9,
-    translate: {x:xcart,y:ycart,z:zcart},
-    stroke: false,
-    color: '#006400',
-    backface: '#148414',
-    rotate: {z:angle1,y:-angle2},
+function trees(angle1,angle2){
+  let anchor = new Zdog.Anchor({
+  addTo: earth,
+  rotate: { y: angle2 },
+});
+  let anchor2 = new Zdog.Anchor({
+  addTo: anchor,
+  rotate: { x: angle1 },
+});
+  anchor3 = new Zdog.Anchor({
+    addTo: anchor2,
+    translate: {z:25},
   });
-  
-  /*new Zdog.Cylinder({
-    addTo: earth,
+
+  new Zdog.Cylinder({
+    addTo: anchor3,
     diameter: 2,
     length: 6,
-    translate: {x:xcart,y:ycart,z:zcart},
     stroke: false,
     color: '#a0522d',
     backface: '#E62',
-    //rotate: { z: -TAU/8 },
-    
-  }); */ 
+  }); 
+  new Zdog.Cone({
+    addTo: anchor3,
+    diameter: 7,
+    length: 9,
+    stroke: false,
+    color: '#006400',
+    backface: '#148414',
+  });
+  return anchor3;
 }
-
 let coord= sphericalToCartesian(25,0,0);
-//trees(coord[0],coord[1],coord[2],90*TAU/360,0);
-for (let i=0; i<360;i=i+60){
-  for (let j=0; j<180;j=j+60){
+let arbres=[];
+
+for (let i=0; i<360;i=i+30){
+  for (let j=0; j<360;j=j+30){
     coord= sphericalToCartesian(25,j,i);
-    trees(coord[0],coord[1],coord[2],j*TAU/360,i*TAU/360);
+    arbres.push(trees(j*TAU/360,i*TAU/360));
   }
 }
-//console.log(xnew);
-//sphericalToCartesian(25,10,12);
-// for (let i=0; i<360;i=i+30){
-//   for (let jmm=0; jmm<180; jmm=jmm+30){
-//     trees(sphericalToCartesian(25,jmm,i)[0],sphericalToCartesian(25,jmm,i)[1],sphericalToCartesian(25,jmm,i)[2],i*TAU/360)
-//     } 
-//   }
-     
-let xaxe = new Zdog.Shape({
+
+let iterator = arbres.values();
+for (let arbres of iterator) {
+  for (let i=0; i<1000;i=i+1){
+    setTimeout(function(){arbres.translate={z:i+25}},1000);
+  }
+  //console.log(arbres);
+}
+
+//console.log(last[0,1,2,3,4,5]);
+
+
+function animate() {
+  illo.updateRenderGraph();
+  requestAnimationFrame( animate );
+}
+animate();
+
+//last.translate={z:45};
+/*let xaxe = new Zdog.Shape({
   addTo: earth,
   path: [ { x: 0 }, { x: 100 } ],
   stroke: 2,
@@ -117,21 +175,4 @@ let zaxe = new Zdog.Shape({
   path: [ { z: 0 }, { z: 100 } ],
   stroke: 2,
   color: '#F0F',
-}); 
-
-
-
-function animate() {
-  //illo.rotate.x += isSpinning ? 0.03 : 0;
-  illo.updateRenderGraph();
-  requestAnimationFrame( animate );
-}
-
-animate();
-
-
-
-
-
-
-//translate: {x:6.25, y:10.82531755,z:21.65063509},
+}); */

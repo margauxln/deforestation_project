@@ -1,11 +1,19 @@
 h1 {
-    color: rgb(153, 0, 0);
+    color:#cae1d1
+
+    ;
     text-align:center;
-    
+
+    font-family: 'Codystar', cursive;
+
 }
 h2 {
-    color:rgb(7, 63, 42);
+    color:#66FF66;
     text-align:center;
+    font-family:'Codystar', cursive; 
+    margin-top:3rem;
+
+
 }
 body {
     background-image: url("galaxy.jpg");

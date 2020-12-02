@@ -10,6 +10,7 @@ var x = setInterval(function() {
   // Find the distance between now and the count down date
   var distance = ~~((nowTime-connectionTime)/1000);
   document.getElementById("demo").innerHTML = distance
+  document.getElementById('output').innerHTML =distance
 
 }, 1000);
 
@@ -139,10 +140,10 @@ for (let i=0; i<360;i=i+30){
   }
 }
 
-let iterator = arbres.values();
-for (let arbres of iterator) {
+let iterator = arbre.values();
+for (let arbre of iterator) {
   for (let i=0; i<1000;i=i+1){
-    setTimeout(function(){arbres.translate={z:i+25}},1000);
+    setTimeout(function(){arbre.translate={z:i+25}},1000); 25*t
   }
   //console.log(arbres);
 }

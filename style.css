@@ -1,26 +1,21 @@
 h1 {
     color:#cae1d1
-
     ;
     text-align:center;
-
     font-family: 'Codystar', cursive;
-
 }
 h2 {
     color:#66FF66;
     text-align:center;
     font-family:'Codystar', cursive; 
     margin-top:3rem;
-
-
 }
 body {
     background-image: url("galaxy.jpg");
-    background-color: #cccccc;
+    background-color: #CCCCCC;
     height: 700px;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;            
     background-size: cover;
     position: relative;
   }

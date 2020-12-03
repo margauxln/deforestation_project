@@ -44,7 +44,6 @@ const illo = new Zdog.Illustration({
 // creation of the earth using Shape
 let earth = new Zdog.Shape({
   addTo: illo,
-  // no path set, default to single point
   stroke: 50,
   color: '#23278f',
 });
@@ -57,7 +56,6 @@ let eye = new Zdog.Ellipse({
   rotate: { z: -TAU/4 },
   color: "#ffffff",
   stroke: 1,
-  // hide when front-side is facing back
   backface: false,
 });
 
@@ -130,6 +128,7 @@ function trees(angle1,angle2){
   });
   return anchor3;
 }
+// loops to put the trees on the earth
 let coord= sphericalToCartesian(25,0,0);
 let arbres=[];
 
@@ -140,40 +139,15 @@ for (let i=0; i<360;i=i+30){
   }
 }
 
-let iterator = arbre.values();
-for (let arbre of iterator) {
+let iterator = arbres.values();
+for (let arbres of iterator) {
   for (let i=0; i<1000;i=i+1){
-    setTimeout(function(){arbre.translate={z:i+25}},1000); 25*t
+    setTimeout(function(){arbres.translate={z:i+25}},1000);
   }
-  //console.log(arbres);
 }
-
-//console.log(last[0,1,2,3,4,5]);
-
 
 function animate() {
   illo.updateRenderGraph();
   requestAnimationFrame( animate );
 }
 animate();
-
-//last.translate={z:45};
-/*let xaxe = new Zdog.Shape({
-  addTo: earth,
-  path: [ { x: 0 }, { x: 100 } ],
-  stroke: 2,
-  color: '#636',
-});
-let yaxe = new Zdog.Shape({
-  addTo: earth,
-  path: [ { y: 0 }, { y: 100 } ],
-  stroke: 2,
-  color: '#EA0',
-});
-
-let zaxe = new Zdog.Shape({
-  addTo: earth,
-  path: [ { z: 0 }, { z: 100 } ],
-  stroke: 2,
-  color: '#F0F',
-}); */

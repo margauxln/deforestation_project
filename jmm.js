@@ -156,7 +156,7 @@ btn.addEventListener("click", function() {
   if (numberalerte==0) {
     alert("Félicitation vous venez de replanter un arbre sur la terre!\nVotre action permettra de sauvegarder la forêt!");
     plantTree();
-    alert++;
+    numberalerte++;
 } else {
     plantTree();
   }
